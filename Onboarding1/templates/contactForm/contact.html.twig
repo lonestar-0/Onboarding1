@@ -1,1 +1,8 @@
-<h1>{{ form(form) }}</h1>
+{% extends 'content_base.html.twig' %}
+{% block content_body %}
+    <h1>Fiche de contact</h1>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-primary">Submit!</button>
+    {{ form_end(form) }}
+{% endblock %}

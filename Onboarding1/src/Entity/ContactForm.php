@@ -36,6 +36,23 @@ class ContactForm
      */
     private $message;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $departement;
+
+    public function getDepartement()
+    {
+        return $this->departement;
+    }
+
+    public function setDepartement($departement): self
+    {
+        $this->departement = $departement;
+
+        return $this;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
