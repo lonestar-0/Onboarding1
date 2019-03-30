@@ -21,6 +21,16 @@ class Departement
      */
     private $nom;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ContactForm", inversedBy="departement")
+     */
+    private $contactForm;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $email;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -34,6 +44,30 @@ class Departement
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getContactForm(): ?ContactForm
+    {
+        return $this->contactForm;
+    }
+
+    public function setContactForm(?ContactForm $contactForm): self
+    {
+        $this->contactForm = $contactForm;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }
