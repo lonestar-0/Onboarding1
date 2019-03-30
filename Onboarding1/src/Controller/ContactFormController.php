@@ -18,6 +18,7 @@ use Doctrine\ORM\EntityManagerInterface;
 class ContactFormController extends AbstractController
 {
     /**
+     * @param EntityManagerInterface $em
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/contact")
@@ -27,18 +28,24 @@ class ContactFormController extends AbstractController
     public function new(EntityManagerInterface $em, Request $request)
     {
         // creates a contactForm and gives it some dummy data for this example
-        $contactForm = new ContactForm();
-        $contactForm->setFirstname('firstname');
-        $contactForm->setLastname('lastname');
-        $contactForm->setEmail('example@email.com');
-        $contactForm->setMessage('firstname');
-        $contactForm->setDepartement('rh');
+//        $contactForm = new ContactForm();
+//        $contactForm->setFirstname('firstname');
+//        $contactForm->setLastname('lastname');
+//        $contactForm->setEmail('example@email.com');
+//        $contactForm->setMessage('firstname');
+//        $contactForm->setDepartement('rh');
 
         $form = $this->createForm(ContactFormType::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $contactForm = $form->getData();
+
+//            $message = (new \Swift_Message('Fiche de contact'))
+//                ->setFrom('symfony4ever@gmail.com')
+//                ->setTo('bonjourjetest@yopmail.com')
+//                ->setBody("Hehe");
+//            $this->get('mailer')->send($message);
 
             $em->persist($contactForm);
             $em->flush();
