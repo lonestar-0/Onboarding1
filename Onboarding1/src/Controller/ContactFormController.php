@@ -8,7 +8,6 @@
 
 namespace App\Controller;
 
-use App\Entity\ContactForm;
 use App\Form\ContactFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,14 +26,6 @@ class ContactFormController extends AbstractController
     
     public function new(EntityManagerInterface $em, Request $request)
     {
-        // creates a contactForm and gives it some dummy data for this example
-//        $contactForm = new ContactForm();
-//        $contactForm->setFirstname('firstname');
-//        $contactForm->setLastname('lastname');
-//        $contactForm->setEmail('example@email.com');
-//        $contactForm->setMessage('firstname');
-//        $contactForm->setDepartement('rh');
-
         $form = $this->createForm(ContactFormType::class);
 
         $form->handleRequest($request);
