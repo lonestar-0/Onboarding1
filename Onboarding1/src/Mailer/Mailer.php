@@ -9,35 +9,25 @@
 namespace App\Mailer;
 
 
-use App\Entity\ContactForm;
-
 class Mailer
 {
-    private $mailer;
-    private $contact;
 
-    /**
-     * Mailer constructor.
-     * @param \Swift_Mailer $mailer
-     * @param ContactForm $contact
-     */
-    public function __construct(\Swift_Mailer $mailer, ContactForm $contact)
+    public function SendMail($departement, \Swift_Mailer $mailer)
     {
-        $this->mailer = $mailer;
-        $this->contact = $contact;
-    }
-
-    public function SendMail()
-    {
-
-        $message = (new \Swift_Message('Fiche de contact'))
+        $message = (new \Swift_Message('Test email'))
             ->setFrom('symfony4ever@gmail.com')
-            ->setTo('test23ab@yopmail.com')
-            ->addPart('wow');
+            ->setTo('Departement1@gmail.com')
+            ->setBody(
+                $this->renderView(
+                // templates/emails/registration.html.twig
+                    'contactform/mail_contact_html.twig',
+                    ['departement' => $departement]
+                ),
+                'text/html'
+            )
+        ;
 
-        return $this->mailer->send($message);
+        $mailer->send($message);
     }
-
-
 
 }

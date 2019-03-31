@@ -111,23 +111,27 @@ class ContactForm
 
     /**
      * @param mixed $departement
-     * @return void
+     * @return ContactForm
      */
-    public function setDepartement($departement): void
-    {
-        $this->departement = $departement;
-    }
-
-
-    public function addDepartement(Departement $departement): self
+    public function setDepartement(Departement $departement): self
     {
         if (!$this->departement->contains($departement)) {
             $this->departement[] = $departement;
             $departement->setContactForm($this);
-        }
+    }
 
         return $this;
     }
+
+//    public function addDepartement(Departement $departement): self
+//    {
+//        if (!$this->departement->contains($departement)) {
+//            $this->departement[] = $departement;
+//            $departement->setContactForm($this);
+//        }
+//
+//        return $this;
+//    }
 
     public function removeDepartement(Departement $departement): self
     {

@@ -1,5 +1,5 @@
-#index:
-#
-#    path: /
-#
-#    controller: App\Controller\ContactFormController::index
+index:
+
+    path: /contact
+
+    controller: App\Controller\ContactFormController::new
