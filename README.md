@@ -21,7 +21,7 @@ données via une classe Fixture
 et envoyer ce mail au responsable du département choisi
 - Mettre le code sur un dépôt Github
 - Envoyer une invitation à “lacpandore”
-Critères d’évaluation:
+### Critères d’évaluation:
 - Rapidité d’écriture
 - Respect de standard POO
 - Clarté du controller, du twig, du Form
