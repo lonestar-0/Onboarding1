@@ -64,8 +64,8 @@ class ContactFormController extends AbstractController
             $departement = $repository->fetchDepartmentEmail($cf["Departement"]);
 
             $em->persist($contact_form);
-            $em->flush();
             $this->SendMail($mailer, $cf, $departement);
+            $em->flush();
 
             $this->addFlash('success', 'Formulaire envoyé avec succès');
 
