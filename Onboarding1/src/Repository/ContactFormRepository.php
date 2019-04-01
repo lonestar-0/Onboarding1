@@ -19,11 +19,6 @@ class ContactFormRepository extends ServiceEntityRepository
         parent::__construct($registry, ContactForm::class);
     }
 
-    public function fetchDepartmentId($value)
-    {
-
-    }
-
     public function fetchDepartmentName($value)
     {
 
@@ -33,7 +28,8 @@ class ContactFormRepository extends ServiceEntityRepository
             ->setParameter('val', $value)
             ->select('d.nom')
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
     }
 
     public function fetchDepartmentEmail($value)
@@ -45,7 +41,8 @@ class ContactFormRepository extends ServiceEntityRepository
             ->setParameter('val', $value)
             ->select('d.email')
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
     }
 
     // /**

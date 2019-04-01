@@ -12,20 +12,21 @@ namespace App\Mailer;
 class Mailer
 {
 
-    public function SendMail($departement, \Swift_Mailer $mailer)
+    public function SendMail(\Swift_Mailer $mailer, $form, $departement)
     {
         $message = (new \Swift_Message('Test email'))
             ->setFrom('symfony4ever@gmail.com')
-            ->setTo('Departement1@gmail.com')
+            ->setTo($departement[0]["email"])
             ->setBody(
                 $this->renderView(
                 // templates/emails/registration.html.twig
-                    'contactform/mail_contact_html.twig',
-                    ['departement' => $departement]
+                    'contactform/mail_contact.html.twig', [
+                        'form' => $form,
+                        'departement' => $departement
+                    ]
                 ),
                 'text/html'
-            )
-        ;
+            );
 
         $mailer->send($message);
     }

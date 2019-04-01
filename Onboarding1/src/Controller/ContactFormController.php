@@ -37,7 +37,6 @@ class ContactFormController extends AbstractController
         $mailer->send($message);
     }
 
-
     /**
      * @param EntityManagerInterface $em
      * @param Request $request
@@ -48,7 +47,8 @@ class ContactFormController extends AbstractController
     {
         $transport = (new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))
             ->setUsername('symfony4ever@gmail.com')
-            ->setPassword('123Password');
+            ->setPassword('123Password')
+        ;
 
         $mailer = new \Swift_Mailer($transport);
 
@@ -57,6 +57,7 @@ class ContactFormController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $contactForm = $form->getData();
+
             $cf = $request->get($form->getName());
 
             $repository = $this->getDoctrine()->getRepository(ContactForm::class);
@@ -67,7 +68,6 @@ class ContactFormController extends AbstractController
             $this->SendMail($mailer, $cf, $departement);
 
             $this->addFlash('success', 'Successfully submitted !');
-
 
             return $this->redirectToRoute('app_contactform_new');
         }
