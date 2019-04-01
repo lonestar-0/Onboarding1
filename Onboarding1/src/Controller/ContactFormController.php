@@ -20,7 +20,7 @@ class ContactFormController extends AbstractController
 {
     public function SendMail(\Swift_Mailer $mailer, $form, $departement)
     {
-        $message = (new \Swift_Message('Test email'))
+        $message = (new \Swift_Message('Fiche de contact'))
             ->setFrom('symfony4ever@gmail.com')
             ->setTo($departement[0]["email"])
             ->setBody(
@@ -56,14 +56,14 @@ class ContactFormController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $contactForm = $form->getData();
+            $contact_form = $form->getData();
 
             $cf = $request->get($form->getName());
 
             $repository = $this->getDoctrine()->getRepository(ContactForm::class);
             $departement = $repository->fetchDepartmentEmail($cf["Departement"]);
 
-            $em->persist($contactForm);
+            $em->persist($contact_form);
             $em->flush();
             $this->SendMail($mailer, $cf, $departement);
 

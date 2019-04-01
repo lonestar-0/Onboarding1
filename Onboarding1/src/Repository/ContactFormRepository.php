@@ -37,7 +37,7 @@ class ContactFormRepository extends ServiceEntityRepository
 
         return $this->createQueryBuilder('c')
             ->join('c.departement', 'd')
-            ->andWhere('d.id=:val')
+            ->andWhere('d.id = :val')
             ->setParameter('val', $value)
             ->select('d.email')
             ->getQuery()
