@@ -8,6 +8,7 @@
 
 namespace App\Controller;
 
+use App\Entity\ContactForm;
 use App\Form\ContactFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Swift_SmtpTransport;
@@ -17,21 +18,21 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class ContactFormController extends AbstractController
 {
-    public function SendMail(\Swift_Mailer $mailer, $form)
+    public function SendMail(\Swift_Mailer $mailer, $form, $departement)
     {
         $message = (new \Swift_Message('Test email'))
             ->setFrom('symfony4ever@gmail.com')
-            ->setTo('Departement1@yopmail.com')
+            ->setTo($departement[0]["email"])
             ->setBody(
                 $this->renderView(
                 // templates/emails/registration.html.twig
                     'contactform/mail_contact.html.twig', [
-                        'form' => $form
+                        'form' => $form,
+                        'departement' => $departement
                     ]
                 ),
                 'text/html'
-            )
-        ;
+            );
 
         $mailer->send($message);
     }
@@ -47,8 +48,7 @@ class ContactFormController extends AbstractController
     {
         $transport = (new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))
             ->setUsername('symfony4ever@gmail.com')
-            ->setPassword('123Password')
-        ;
+            ->setPassword('123Password');
 
         $mailer = new \Swift_Mailer($transport);
 
@@ -57,22 +57,21 @@ class ContactFormController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $contactForm = $form->getData();
-
-//            $repository = $this->getDoctrine()->getRepository(ContactForm::class);
-//            $departement= $repository->fetchDepartmentName($form->get('Departement')->getName());
-
             $cf = $request->get($form->getName());
+
+            $repository = $this->getDoctrine()->getRepository(ContactForm::class);
+            $departement = $repository->fetchDepartmentEmail($cf["Departement"]);
 
             $em->persist($contactForm);
             $em->flush();
-            $this->SendMail($mailer, $cf);
+            $this->SendMail($mailer, $cf, $departement);
 
             $this->addFlash('success', 'Successfully submitted !');
 
 
             return $this->redirectToRoute('app_contactform_new');
         }
-        
+
         return $this->render('contactform/contact.html.twig', [
             'form' => $form->createView(),
         ]);

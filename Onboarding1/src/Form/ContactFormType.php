@@ -30,8 +30,7 @@ class ContactFormType extends AbstractType
             ->add('Departement', EntityType::class, [
                 'class' => Departement::class,
                 'choice_label' => 'nom'
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

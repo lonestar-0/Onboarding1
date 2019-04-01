@@ -118,7 +118,7 @@ class ContactForm
         if (!$this->departement->contains($departement)) {
             $this->departement[] = $departement;
             $departement->setContactForm($this);
-    }
+        }
 
         return $this;
     }
