@@ -40,5 +40,4 @@ class ContactFormType extends AbstractType
             'data_class' => ContactForm::class
         ]);
     }
-
 }

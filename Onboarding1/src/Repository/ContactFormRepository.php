@@ -19,6 +19,19 @@ class ContactFormRepository extends ServiceEntityRepository
         parent::__construct($registry, ContactForm::class);
     }
 
+
+    public function fetchDepartmentName($value){
+
+       return $this->createQueryBuilder('c')
+            ->join('c.departement', 'd')
+            ->andWhere('d.id=:val')
+            ->setParameter('val',$value)
+            ->select('d.nom')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return ContactForm[] Returns an array of ContactForm objects
     //  */

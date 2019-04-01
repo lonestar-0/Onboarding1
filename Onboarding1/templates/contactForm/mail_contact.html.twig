@@ -1,8 +1,26 @@
-{% block body %}>
 
-    {% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-    {{ form_end(form) }}
+<h1>
+    Fiche de contact
+</h1>
+<br/>
 
-{% endblock %}
+Un formulaire a été rempli pour votre département
+
+<h3>Firstname :</h3>
+{{ form["Firstname"] }}
+<br/>
+<br/>
+
+<h3>Lastname :</h3>
+{{ form["Lastname"] }}
+<br/>
+<br/>
+
+<h3>Email :</h3>
+{{ form["Email"] }}
+<br/>
+<br/>
+
+<h3>Message :</h3>
+{{ form["Message"] }}
+

@@ -17,16 +17,17 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class ContactFormController extends AbstractController
 {
-
-    public function SendMail(\Swift_Mailer $mailer)
+    public function SendMail(\Swift_Mailer $mailer, $form)
     {
         $message = (new \Swift_Message('Test email'))
             ->setFrom('symfony4ever@gmail.com')
-            ->setTo('Departement1@gmail.com')
+            ->setTo('Departement1@yopmail.com')
             ->setBody(
                 $this->renderView(
                 // templates/emails/registration.html.twig
-                    'contactform/mail_contact_html.twig'
+                    'contactform/mail_contact.html.twig', [
+                        'form' => $form
+                    ]
                 ),
                 'text/html'
             )
@@ -42,14 +43,11 @@ class ContactFormController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/contact")
      */
-
-    
     public function new(EntityManagerInterface $em, Request $request)
     {
-
-        $transport = (new Swift_SmtpTransport('smtp-exploded.alwaysdata.net', 25))
-            ->setUsername('exploded@alwaysdata.net')
-            ->setPassword('123Passwd456_')
+        $transport = (new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))
+            ->setUsername('symfony4ever@gmail.com')
+            ->setPassword('123Password')
         ;
 
         $mailer = new \Swift_Mailer($transport);
@@ -60,11 +58,16 @@ class ContactFormController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $contactForm = $form->getData();
 
+//            $repository = $this->getDoctrine()->getRepository(ContactForm::class);
+//            $departement= $repository->fetchDepartmentName($form->get('Departement')->getName());
+
+            $cf = $request->get($form->getName());
+
             $em->persist($contactForm);
             $em->flush();
-            $this->SendMail($mailer);
+            $this->SendMail($mailer, $cf);
 
-            $this->addFlash('success', 'Article créé avec succes !');
+            $this->addFlash('success', 'Successfully submitted !');
 
 
             return $this->redirectToRoute('app_contactform_new');

@@ -123,15 +123,15 @@ class ContactForm
         return $this;
     }
 
-//    public function addDepartement(Departement $departement): self
-//    {
-//        if (!$this->departement->contains($departement)) {
-//            $this->departement[] = $departement;
-//            $departement->setContactForm($this);
-//        }
-//
-//        return $this;
-//    }
+    public function addDepartement(Departement $departement): self
+    {
+        if (!$this->departement->contains($departement)) {
+            $this->departement[] = $departement;
+            $departement->setContactForm($this);
+        }
+
+        return $this;
+    }
 
     public function removeDepartement(Departement $departement): self
     {
