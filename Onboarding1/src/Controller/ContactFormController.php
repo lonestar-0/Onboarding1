@@ -67,7 +67,7 @@ class ContactFormController extends AbstractController
             $em->flush();
             $this->SendMail($mailer, $cf, $departement);
 
-            $this->addFlash('success', 'Successfully submitted !');
+            $this->addFlash('success', 'Formulaire envoyé avec succès');
 
             return $this->redirectToRoute('app_contactform_new');
         }

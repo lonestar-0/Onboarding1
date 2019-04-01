@@ -5,14 +5,10 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
     </head>
-    <body>
 
-    <div class="alert alert-success">
-        {{ message }}
-    </div>
+    {% block body %}
 
-    {% block body %}{% endblock %}
+    {% endblock %}
     {% block javascripts %}{% endblock %}
 
-    </body>
 </html>
